@@ -30,6 +30,13 @@ def main():
         elif command == "new_student":
             make_new_student(*args)
 
+def make_new_student(first_name, last_name, github):
+    query = """INSERT into Students values (?,?,?)"""
+    DB.execute(query, (first_name,last_name,github))
+
+    CONN.commit()
+    print "Successfully added student: %s %s"%(first_name,last_name)
+
     CONN.close()
 
 if __name__ == "__main__":
