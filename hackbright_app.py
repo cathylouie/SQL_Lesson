@@ -19,7 +19,7 @@ def get_project_title(id):
         return None
 
 def get_grade_by_title(project_title):
-    query = """SELECT first_name, last_name, project_title, grade FROM Grades JOIN Students ON github=student_github WHERE project_title = ?""" 
+    query = """SELECT first_name, last_name, student_github, project_title, grade FROM Grades JOIN Students ON github=student_github WHERE project_title = ?""" 
     DB.execute(query, (project_title,))
     row = DB.fetchall()
     return row
