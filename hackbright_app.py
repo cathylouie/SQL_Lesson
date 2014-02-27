@@ -3,41 +3,55 @@ import sqlite3
 DB = None
 CONN = None
 
+def get_all_projects():
+    query = """SELECT id, title FROM Projects"""
+    DB.execute(query, ())
+    row = DB.fetchall()
+    return row
+
+def get_project_title(id):
+    query = """SELECT title FROM Projects WHERE id = ?"""
+    DB.execute(query,(id))
+    try:
+        row = DB.fetchone()
+        return row[0]
+    except:
+        return None
+
 def get_grade_by_title(project_title):
     query = """SELECT first_name, last_name, project_title, grade FROM Grades JOIN Students ON github=student_github WHERE project_title = ?""" 
     DB.execute(query, (project_title,))
-    row = DB.fetchone()
-    print """\
-    Student: %s %s
-    Project Title: %s
-    Grade: %s"""%(row[0], row[1], row[2], row[3])
+    row = DB.fetchall()
+    return row
+    # print """\
+    # Student: %s %s
+    # Project Title: %s
+    # Grade: %s"""%(row[0], row[1], row[2], row[3])
 
 def get_project_by_title(title):
     query = """SELECT title, description, max_grade FROM Projects WHERE title = ?"""
     DB.execute(query, (title,))
     row = DB.fetchone()
     print """\
-Title: %s 
-Description: %s
-Maximum grade: %s"""%(row[0], row[1], row[2])   
+    Title: %s 
+    Description: %s
+    Maximum grade: %s"""%(row[0], row[1], row[2])   
 
 def get_student_by_github(github):
     query = """SELECT first_name, last_name, github FROM Students WHERE github = ?"""
     DB.execute(query, (github,))
     row = DB.fetchone()
-    print """\
-Student: %s %s
-Github account: %s"""%(row[0], row[1], row[2])
+    return row
 
-def get_grade_by_student(grade):
-    query = """SELECT first_name, last_name, project_title, grade FROM Students JOIN Grades ON github=student_github WHERE first_name = ?""" 
+
+def get_grade_by_github(grade):
+    query = """SELECT first_name, last_name, project_title, grade FROM Students JOIN Grades ON github=student_github WHERE github = ?""" 
     DB.execute(query, (grade,))
     row = DB.fetchall()
-    for index in row:
-        print """\
-    Student: %s %s
-    Project: %s
-    Grade: %s"""%(index[0], index[1], index[2], index[3])
+    return row
+    # Student: %s %s
+    # Project: %s
+    # Grade: %s"""%(index[0], index[1], index[2], index[3])
 
 def make_new_student(first_name, last_name, github):
     query = """INSERT into Students values (?,?,?)"""
