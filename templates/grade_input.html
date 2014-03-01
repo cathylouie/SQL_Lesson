@@ -1,0 +1,10 @@
+<html>
+<head>
+    
+</head>
+<body>
+{% for tuple in list_of_grades %}
+    <p>Project: {{tuple[3]}}<br>Student: {{tuple[0]}} {{tuple[1]}}<br>Github: {{tuple[2]}}<br><form action="/completed_new_grade/info/{{id}}">Grade: <input type="text" name="grade" value="{{tuple[4]}}"/><input type="submit"></form></p>
+{% endfor %}
+</body>
+</html>

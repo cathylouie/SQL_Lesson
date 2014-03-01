@@ -1,0 +1,12 @@
+
+<html>
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Which Project Would You Like to Grade?</h1>
+{% for tuple in projects %}
+<a class="btn btn-default" href = "/new_grade/info/{{tuple[0]}}">{{tuple[1]}}</a><br>
+{% endfor %}
+</body>
+</html>
